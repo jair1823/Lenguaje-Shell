@@ -25,34 +25,17 @@ setValues(){
 }
 setValues
 
-fullfile="./prueba (3rd copy).c"
-filename=$(basename -- "$fullfile")
-extension="${filename##*.}"
-filename="${filename%.*}"
-
-#echo "$fullfile"
-#echo "$filename"
-#echo "$extension"
-#echo ""
-#echo ""
-
-
 for i in $(find -name "*$SUFIJOS")
 do
-  #echo "$i"
+
   if [ $NOERROR -eq 1 ]
   then
-    $CC $CFLAGS "$i" -o "${i%.*}.log" #2> ${i%.*}.log
+    $CC $CFLAGS "$i" -o "${i%.*}.log"
     if [ $? -ne 0 ]
     then
       NOERROR=0
       echo "Ocurrion un error al compilar el archivo $(basename $i)"
-      #Se genero un .log con el error."
-    #else
-      #echo ""
-      #cat ${i%.*}.log
-      #echo ""
-      #rm ${i%.*}.log
+      exit 3;
     fi
     if [ "$VERBOSE" != "0" ] && [ $NOERROR -eq 1 ]
     then
