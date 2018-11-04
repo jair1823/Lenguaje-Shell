@@ -30,7 +30,7 @@ do
 
   if [ $NOERROR -eq 1 ]
   then
-    $CC $CFLAGS "$i" -o "${i%.*}.log"
+    $CC $CFLAGS "$i" -o "${i%.*}.out"
     if [ $? -ne 0 ]
     then
       NOERROR=0
@@ -39,7 +39,7 @@ do
     fi
     if [ "$VERBOSE" != "0" ] && [ $NOERROR -eq 1 ]
     then
-      echo "$CC $CFLAGS ${i} -o ${i%.*}.log"
+      echo "$CC $CFLAGS ${i} -o ${i%.*}.out"
     fi
   fi
 done
