@@ -1,4 +1,3 @@
-#!/bin/sh
 a=0;
 N=10;
 revisarNumero(){
