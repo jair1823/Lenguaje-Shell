@@ -1,7 +1,10 @@
 commit.sh
 prueba.sh
+prueba
+makefile
 prueba2.sh
 git log -1 | cowsay -f dragon-and-cow | lolcat
 test_taunt.sh
 a
 *.c
+temp.log

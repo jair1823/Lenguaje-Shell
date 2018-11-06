@@ -1,10 +1,10 @@
-#!/bin/sh
-# timed-input.sh
+#!/bin/bash
+
 
 # TMOUT=3    Also works, as of newer versions of Bash.
 
 TIMER_INTERRUPT=14
-TIMELIMIT=2  # Three seconds in this instance.
+TIMELIMIT=3  # Three seconds in this instance.
              # May be set to different value.
 
 PrintAnswer()
@@ -33,7 +33,6 @@ Int14Vector()
 {
   answer="TIMEOUT"
   PrintAnswer
-  echo "EXIT"
   exit $TIMER_INTERRUPT
 }
 
@@ -43,5 +42,16 @@ echo "What is your favorite vegetable "
 TimerOn
 read answer
 PrintAnswer
+
+
+#  Admittedly, this is a kludgy implementation of timed input.
+#  However, the "-t" option to "read" simplifies this task.
+#  See the "t-out.sh" script.
+#  However, what about timing not just single user input,
+#+ but an entire script?
+
+#  If you need something really elegant ...
+#+ consider writing the application in C or C++,
+#+ using appropriate library functions, such as 'alarm' and 'setitimer.'
 
 exit 0

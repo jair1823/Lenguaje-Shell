@@ -1,0 +1,59 @@
+#!/bin/bash
+
+
+# TMOUT=3    Also works, as of newer versions of Bash.
+
+ALARM_CLOCK=14 #print randon
+
+INTERRUPT=2 #choteo
+TERMINATE=15 #choteo
+
+OUT=0
+
+CLEAN_TIDYUP=1 #especial y terminar
+
+
+TIMELIMIT=5  # Three seconds in this instance.
+             # May be set to different value.
+
+CHOT=" "
+
+
+
+TimerOn()
+{
+  sleep $TIMELIMIT && kill -s 14 $$ &
+  # Waits 3 seconds, then sends sigalarm to script.
+}
+
+
+EndTime(){
+    #kill $!;
+    fortune | cowsay -f kitty
+    exit 1;
+}
+
+Choteo(){
+  #kill $!;
+  echo "adasds"
+  cowsay -f kitty "acas"
+  exit 1
+}
+
+Kill(){
+  kill 14;
+}
+
+trap EndTime $ALARM_CLOCK
+
+trap Choteo $INTERRUPT
+trap SIGTERM $TERMINATE
+trap KILL $TERMINATE
+
+trap Kill $CLEAN_TIDYUP
+
+echo "::"
+TimerOn
+read $CHOT
+
+exit 1
