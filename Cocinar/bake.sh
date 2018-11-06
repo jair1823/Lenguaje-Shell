@@ -1,4 +1,4 @@
-
+#!/bin/sh
 setValues(){
   #NOERROR es la variable utilizada para detener la ejecucion si una compilacion falla
   NOERROR=1

@@ -1,18 +1,20 @@
+#!/bin/sh
 a=0;
 N=10;
 revisarNumero(){
-  es_numero='[0-9]'
-  if ! [[ $1 =~ $es_numero ]] ; then
-     echo "-N debe tener valor numerico";
-     exit 3;
+    #Revisa si el segundo parámetro es un entero.
+  if echo "$1" | egrep -q '^\+?[0-9]+$'; then
+     N=$1;
+  else
+      echo "-N requiere un parametro entero positivo"
+     exit 5;
   fi
 }
 while getopts ":N: a" flag
 do
     case $flag in
         a ) a=1;;
-        N ) N=$OPTARG
-            revisarNumero $N;;
+        N ) revisarNumero $OPTARG;;
         \? ) echo "Opcion invalida -$OPTARG"
               exit 2 ;;
         : ) echo "Opcion -$OPTARG requiere un argumento"
@@ -20,6 +22,8 @@ do
     esac
 done
 shift $((OPTIND-1))
+
+#echo 'N es ' $N;
 
 if [ $# -eq 0 ]
 then
@@ -29,13 +33,21 @@ fi
 
 for i in $@
 do
-    echo $i;
-    if [ $a -eq 0 ]
+    cd $i 2> /dev/null
+    if [ $? -ne 0 ]
     then
-      du $i -h  2> /dev/null | sort -h -r| head -n $N
+      echo $i " no es un directorio valido"
+      echo ""
     else
-      du $i -a -h  2> /dev/null | sort -h -r| head -n $N
+        echo $i;
+        if [ $a -eq 0 ]
+        then
+          du $i -h  2> /dev/null | sort -h -r| head -n $N
+        else
+          du $i -a -h  2> /dev/null | sort -h -r| head -n $N
+        fi
+        echo ""
     fi
-    echo ""
+
 done
 exit 1;
