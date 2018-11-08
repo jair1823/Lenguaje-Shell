@@ -1,47 +1,51 @@
 #!/bin/sh
-# timed-input.sh
-
-# TMOUT=3    Also works, as of newer versions of Bash.
-
-TIMER_INTERRUPT=14
-TIMELIMIT=2  # Three seconds in this instance.
-             # May be set to different value.
-
-PrintAnswer()
-{
-  if [ "$answer" = TIMEOUT ]
-  then
-    echo $answer
-  else       # Don't want to mix up the two instances.
-    echo "Your favorite veggie is $answer"
-    kill $!  #  Kills no-longer-needed TimerOn function
-             #+ running in background.
-             #  $! is PID of last job running in background.
-  fi
-
+timeOut(){
+  #echo "Time Out $$";
+  #fortune | cowsay -f kitty
+  cowsay -f tux << EA
+[insert a witty message]
+EA
+  exit #$
+}
+interrupt(){
+  #echo "SIGINT $$";
+  #fortune | cowsay -f head-in
+  cowsay -f tux << EA
+[insert a taunt]
+EA
+  exit #$
+}
+#You can't terminate with me...
+#because her already did.
+#:(
+#bye
+terminate(){ ###
+  #echo "SIGTERM $$";
+  cowsay -f tux <<EA
+[insert taunt]
+EA
+  #fortune | cowsay -f tux
+  exit #$
 }
 
-
-TimerOn()
-{
-  sleep $TIMELIMIT && kill -s 14 $$ &
-  # Waits 3 seconds, then sends sigalarm to script.
+sighup(){ ##
+  #echo "SIGHUP"
+  cowsay -f tux <<EA
+[insert a special message]
+EA
+  exit #$
 }
+trap interrupt 2;
+trap sighup 1;
+trap terminate 15;
 
+cowsay -f tux "Hello, Human"
+#echo "pid is $$"
+#for i in `seq 1 10`
+#do
+  sleep 10 &
+  wait
+#  #echo $i
+#done
 
-Int14Vector()
-{
-  answer="TIMEOUT"
-  PrintAnswer
-  echo "EXIT"
-  exit $TIMER_INTERRUPT
-}
-
-trap Int14Vector $TIMER_INTERRUPT
-
-echo "What is your favorite vegetable "
-TimerOn
-read answer
-PrintAnswer
-
-exit 0
+timeOut
