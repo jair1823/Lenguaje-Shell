@@ -1,51 +1,40 @@
 #!/bin/sh
+
 timeOut(){
-  #echo "Time Out $$";
-  #fortune | cowsay -f kitty
   cowsay -f tux << EA
 [insert a witty message]
 EA
   exit #$
 }
-interrupt(){
-  #echo "SIGINT $$";
-  #fortune | cowsay -f head-in
+#sigint
+sigint(){
   cowsay -f tux << EA
 [insert a taunt]
 EA
   exit #$
 }
-#You can't terminate with me...
-#because her already did.
-#:(
-#bye
-terminate(){ ###
-  #echo "SIGTERM $$";
+#sigterm
+sigterm(){
   cowsay -f tux <<EA
 [insert taunt]
 EA
-  #fortune | cowsay -f tux
   exit #$
 }
-
-sighup(){ ##
-  #echo "SIGHUP"
+#sighup
+sighup(){
   cowsay -f tux <<EA
 [insert a special message]
 EA
   exit #$
 }
-trap interrupt 2;
+#atrapar las banderas
+trap sigint 2;
 trap sighup 1;
-trap terminate 15;
-
+trap sigterm 15;
+#cowsay inicial :)
 cowsay -f tux "Hello, Human"
-#echo "pid is $$"
-#for i in `seq 1 10`
-#do
-  sleep 10 &
-  wait
-#  #echo $i
-#done
-
+#espera de 10 segundos
+sleep 10 &
+wait
+#caso de no obtener niguna signal
 timeOut

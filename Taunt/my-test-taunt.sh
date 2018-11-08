@@ -1,5 +1,5 @@
 #!/bin/sh
-
+#My test taunt :)
 echo "TIMEOUT"
 ./taunt.sh &
 sleep 10
@@ -22,12 +22,3 @@ echo "SIGHUP"
 sleep 2
 kill -s 1 $!
 sleep 2
-
-
-#echo ""
-#echo ""
-#echo "SIGINT"
-#./taunt.sh &
-#sleep 2
-#./my_test.sh $!
-#sleep 2
