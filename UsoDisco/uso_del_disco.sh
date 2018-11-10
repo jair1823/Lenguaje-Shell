@@ -5,7 +5,7 @@ N=10;
 while getopts ":N: a" flag
 do
     case $flag in
-        a ) a=1;;
+        a ) A=1;;
         N )
               if echo "$OPTARG" | egrep -q '^\+?[0-9]+$';
               then

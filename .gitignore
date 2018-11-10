@@ -9,3 +9,4 @@ a
 *.c
 temp.log
 gitlogxd
+*.cc
