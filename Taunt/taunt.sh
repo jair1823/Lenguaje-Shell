@@ -1,5 +1,4 @@
 #!/bin/sh
-
 timeOut(){
   cowsay -f tux << EA
 [insert a witty message]
@@ -8,14 +7,14 @@ EA
 }
 #sigint
 sigint(){
-  cowsay -f tux << EA
+  cowsay -f head-in << EA
 [insert a taunt]
 EA
   exit #$
 }
 #sigterm
 sigterm(){
-  cowsay -f tux <<EA
+  cowsay -f head-in <<EA
 [insert taunt]
 EA
   exit #$
@@ -28,8 +27,8 @@ EA
   exit #$
 }
 #atrapar las banderas
-trap sigint 2;
 trap sighup 1;
+trap sigint 2;
 trap sigterm 15;
 #cowsay inicial :)
 cowsay -f tux "Hello, Human"
